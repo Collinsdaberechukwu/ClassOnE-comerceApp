@@ -9,6 +9,8 @@ import com.example.classonecomerceapp.repository.AdminRepository;
 import com.example.classonecomerceapp.repository.ProductRepository;
 import com.example.classonecomerceapp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,15 +20,14 @@ public class AdminService{
     private final AdminRepository adminRepository;
     private final UserRepository userRepository;
 
+    public ResponseEntity<Product> addProduct(ProductsDto  productsDto){
+        Product newProduct = new Product();
+        newProduct.setName(productsDto.getName());
+        newProduct.setDescription(productsDto.getDescription());
+        newProduct.setAmount(productsDto.getAmount());
 
-    Product createProduct(ProductsDto productsDto) {
-           Product newProduct = new Product();
-           newProduct.setName(productsDto.getName());
-           newProduct.setAmount(productsDto.getAmount());
-           newProduct.setDescription(productsDto.getDescription());
-
-//           we will work on line 27
-           return productRepository.save(newProduct);
+        Product addedProduct = productRepository.save(newProduct);
+        return  new ResponseEntity<>(addedProduct, HttpStatus.CREATED);
     }
 
 
