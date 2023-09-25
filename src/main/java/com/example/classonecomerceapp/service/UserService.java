@@ -1,7 +1,10 @@
 package com.example.classonecomerceapp.service;
 
+import com.example.classonecomerceapp.dto.Login;
 import com.example.classonecomerceapp.dto.SignUp;
+import com.example.classonecomerceapp.dto.UserDto;
 import com.example.classonecomerceapp.model.Users;
+import com.example.classonecomerceapp.repository.LoginRepository;
 import com.example.classonecomerceapp.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final LoginRepository loginRepository;
     public ResponseEntity<Users>  createUser(SignUp signUp) {
         Users newUser = new Users();
         newUser.setFirstName(signUp.getFirstName());
@@ -25,9 +29,12 @@ public class UserService {
         Users savedUser = userRepository.save(newUser);
         return new ResponseEntity<>(savedUser,HttpStatus.CREATED);
 
-//        Users savedUser = userRepository.save(newUser);
-////        userRepository.save(newUser);
-//        return new  ResponseEntity<>(newUser, HttpStatus.CREATED);
-//        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
+     public ResponseEntity<Users> loginUser(UserDto userDto) {
+         Users userLogger = new Users();
+         userLogger.setEmail(userDto.getEmail());
+         userLogger.setPassword(userDto.getPassword());
+         Users loggedUser = userRepository.save(userLogger);
+         return new ResponseEntity<>(loggedUser, HttpStatus.OK);
+     }
 }
