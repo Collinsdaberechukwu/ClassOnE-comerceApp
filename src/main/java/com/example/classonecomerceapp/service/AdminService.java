@@ -30,5 +30,19 @@ public class AdminService{
         return  new ResponseEntity<>(addedProduct, HttpStatus.CREATED);
     }
 
+    public ResponseEntity<Product> updateProduct(ProductsDto productsDto,Long id){
+        Product product = productRepository.findById(id).orElseThrow(()-> new RuntimeException("Product not found"));
+    product.setAmount(productsDto.getAmount());
+     product.setName(productsDto.getName());
+       product.setDescription(productsDto.getDescription());
+
+        Product savedUpdate = productRepository.save(product);
+        return new ResponseEntity<>(savedUpdate,HttpStatus.CREATED);
+    }
+
+    public void deleteProduct(Long id){
+        productRepository.deleteById(id);
+    }
+
 
 }
