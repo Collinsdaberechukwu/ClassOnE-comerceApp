@@ -49,5 +49,9 @@ public class AdminService{
         return new ResponseEntity<>(gettingProduct,HttpStatus.OK);
     }
 
+    public Admin findByUsername(String username){
+        return adminRepository.findByUsername(username);
+    }
+
 
 }
