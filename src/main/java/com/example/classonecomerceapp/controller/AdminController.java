@@ -32,4 +32,9 @@ public class AdminController {
         productRepository.deleteById(id);
         return new ResponseEntity<>("Product deleted successfully",HttpStatus.OK);
     }
+    @GetMapping("getProduct{Id}")
+    public ResponseEntity<Long> getProduct(@PathVariable Long id, @PathVariable String Id){
+        productRepository.findById(id);
+        return  new ResponseEntity<>(id,HttpStatus.OK);
+    }
 }

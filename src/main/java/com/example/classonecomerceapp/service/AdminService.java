@@ -44,5 +44,10 @@ public class AdminService{
         productRepository.deleteById(id);
     }
 
+    public ResponseEntity<Product> getProduct( Long id){
+        Product gettingProduct = productRepository.findById(id).get();
+        return new ResponseEntity<>(gettingProduct,HttpStatus.OK);
+    }
+
 
 }
