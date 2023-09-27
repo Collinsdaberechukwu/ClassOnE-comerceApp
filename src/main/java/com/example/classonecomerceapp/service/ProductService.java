@@ -22,9 +22,9 @@ public class ProductService {
     private final ProductRepository productRepository;
 
 
-    public ProductsDto getProductById(Long id){
+    public ResponseEntity<ProductsDto> getProductById(Long id){
         Product product = productRepository.findById(id).orElseThrow(()-> new RuntimeException("Product not found try other products"));
-        return new ResponseEntity<>(product, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     public ResponseData getAllProductById(Pageable pageable){
