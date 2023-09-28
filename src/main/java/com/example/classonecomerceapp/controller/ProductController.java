@@ -21,7 +21,7 @@ public class ProductController {
 
     @GetMapping("getProductById{id}")
     public ResponseEntity<ProductsDto> getProductById(@PathVariable Long id){
-       ProductsDto foundProduct = productService.getProductById(id);
+       ProductsDto foundProduct = productService.getProductById(id).getBody();
         if (foundProduct == null){
             throw new RuntimeException("Product not found or not available");
         }
